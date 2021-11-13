@@ -1,24 +1,9 @@
-import { useEffect, useState } from 'react'
-import { api } from '../../services/api'
+import { useTransactions } from '../../hooks/useTransactions'
 import * as Styled from './styles'
 
-type Transaction = {
-  id:number;
-  title:string;
-  type:string;
-  category:string;
-  amount:number;
-  createdAt:string;
-}
 
 export function TransactionsTable () {
-  const [transactions, setTransactions] = useState<Transaction[]>([])
-
-  useEffect(()=>{
-    
-    api.get('/transactions')
-      .then(response => setTransactions(response.data.transactions))
-  },[])
+  const {transactions} = useTransactions();
   
   return(
     <Styled.Container>
@@ -49,19 +34,7 @@ export function TransactionsTable () {
             </tr>
            )
           })}
-          {/* <tr>
-            <td>Desenvolvimento de website</td>
-            <td className='deposit'>R$12.000</td>
-            <td>Desenvolvimento</td>
-            <td>20/02/2021</td>
-          </tr>
-          <tr>
-            <td>Aluguel</td>
-            <td className='withdraw'>-R$1.100</td>
-            <td>Casa</td>
-            <td>17/02/2021</td>
-          </tr>
-          */}
+         
         </tbody>
       </table>
     </Styled.Container>
